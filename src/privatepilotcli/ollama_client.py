@@ -33,15 +33,17 @@ class OllamaClient:
             content = msg.content if msg.content else None
             tool_calls = None
             if msg.tool_calls:
-                tool_calls = [
-                    {
-                        "function": {
-                            "name": tc.function.name,
-                            "arguments": dict(tc.function.arguments),
-                        }
-                    }
-                    for tc in msg.tool_calls
-                ]
+                tool_calls = []
+                for tc in msg.tool_calls:
+                    try:
+                        tool_calls.append({
+                            "function": {
+                                "name": tc.function.name,
+                                "arguments": dict(tc.function.arguments),
+                            }
+                        })
+                    except Exception:
+                        pass
             yield StreamChunk(
                 content=content,
                 tool_calls=tool_calls,

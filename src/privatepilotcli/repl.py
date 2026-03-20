@@ -179,6 +179,9 @@ class InteractiveREPL:
         except KeyboardInterrupt:
             self._console.print("\n[dim][cancelled][/dim]")
             return
+        except Exception as e:
+            self._console.print(f"\n[red]Error:[/red] {e}")
+            return
 
         if accumulated:
             # Re-render the full response as Markdown
