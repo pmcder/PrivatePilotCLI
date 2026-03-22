@@ -17,14 +17,16 @@ jobs:
         with:
           python-version: "3.14"
 
-      - name: Install project + dependencies (Hatchling)
+      - name: Install security tools
         run: |
           python -m pip install --upgrade pip
-          pip install .
           pip install pip-audit safety
 
-      - name: Run pip-audit
-        run: pip-audit --ignore-vulns privatepilotcli
+      - name: Install project + dependencies (Hatchling)
+        run: pip install .
+
+      - name: Run pip-audit (project deps only)
+        run: pip-audit --local --skip-editable
 
       - name: Run Safety
         run: safety check --full-report
