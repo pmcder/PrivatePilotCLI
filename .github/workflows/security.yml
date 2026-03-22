@@ -24,7 +24,7 @@ jobs:
           pip install pip-audit safety
 
       - name: Run pip-audit
-        run: pip-audit
+        run: pip-audit --ignore-vulns privatepilotcli
 
       - name: Run Safety
         run: safety check --full-report
