@@ -1,4 +1,5 @@
 # ppilot
+![cli screenshot](ppilot-screenshot.png)
 
 A local AI assistant CLI powered by [Ollama](https://ollama.com) with [Model Context Protocol (MCP)](https://modelcontextprotocol.io) tool support and a customizable skills system.
 
