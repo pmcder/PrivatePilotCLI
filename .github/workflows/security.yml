@@ -1,0 +1,32 @@
+name: Dependency Security
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install security tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit safety
+
+      - name: Install project + dependencies (Hatchling)
+        run: pip install .
+
+      - name: Run pip-audit (project deps only)
+        run: pip-audit --local --skip-editable
+
+      - name: Run Safety
+        run: safety check --full-report
